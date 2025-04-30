@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 import { queryClient } from "./lib/queryClient";
 import MenuPage from "./pages/MenuPage";
 import KitchenDashboard from "./pages/KitchenDashboard";
+import { CartProvider } from "./context/CartContext";
 
 function Router() {
   return (
@@ -34,8 +35,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Router />
+        <CartProvider>
+          <Toaster />
+          <Router />
+        </CartProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
