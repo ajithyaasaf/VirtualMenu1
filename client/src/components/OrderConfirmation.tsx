@@ -46,7 +46,7 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
       className="fixed inset-0 z-50 bg-gradient-to-b from-white to-accent/30 flex flex-col items-center justify-center p-6 transform scale-0 opacity-0 transition-all duration-300"
       style={{ visibility: isVisible ? 'visible' : 'hidden' }}
     >
-      <div className="p-6 rounded-xl max-w-md w-full bg-white shadow-lg">
+      <div className="p-6 md:p-8 rounded-xl max-w-md w-full bg-white shadow-lg md:max-w-lg lg:max-w-xl">
         {/* Success icon */}
         <div className="relative">
           <div className="absolute inset-0 bg-primary/10 rounded-full animate-ping opacity-30"></div>

@@ -6,7 +6,7 @@ import CategoryNav from '@/components/CategoryNav';
 import MenuList from '@/components/MenuList';
 import CartSheet from '@/components/CartSheet';
 import OrderConfirmation from '@/components/OrderConfirmation';
-import { Category, CATEGORIES, ORDER_STATUS } from '@shared/schema';
+import { Category, CATEGORIES, ORDER_STATUS, MenuItem } from '@shared/schema';
 import { useWebSocket } from '@/hooks/useWebSocket';
 
 const MenuPage: React.FC = () => {
@@ -23,8 +23,8 @@ const MenuPage: React.FC = () => {
     status: ORDER_STATUS.NEW
   });
   
-  // Fetch menu items
-  const { data: menuItems = [], isLoading } = useQuery({
+  // Fetch menu items with proper type annotation
+  const { data: menuItems = [], isLoading } = useQuery<MenuItem[]>({
     queryKey: ['/api/menu'],
   });
   

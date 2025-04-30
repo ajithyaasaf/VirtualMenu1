@@ -21,21 +21,49 @@ const CartSheet: React.FC<CartSheetProps> = ({ isOpen, tableId, onClose }) => {
   const sheetRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   
-  // Animation control
+  // Animation control based on screen size
   useEffect(() => {
     if (!sheetRef.current || !backdropRef.current) return;
     
+    // Check if we're on mobile or desktop
+    const isMobile = window.innerWidth < 768;
+    
     if (isOpen) {
-      sheetRef.current.style.transform = 'translateY(0)';
+      // Different animations based on screen size
+      if (isMobile) {
+        sheetRef.current.style.transform = 'translateY(0)';
+      } else {
+        sheetRef.current.style.transform = 'translateX(0)';
+      }
+      
       backdropRef.current.classList.add('opacity-100');
       backdropRef.current.classList.remove('opacity-0', 'pointer-events-none');
       document.body.style.overflow = 'hidden';
     } else {
-      sheetRef.current.style.transform = 'translateY(100%)';
+      // Different animations based on screen size
+      if (isMobile) {
+        sheetRef.current.style.transform = 'translateY(100%)';
+      } else {
+        sheetRef.current.style.transform = 'translateX(100%)';
+      }
+      
       backdropRef.current.classList.remove('opacity-100');
       backdropRef.current.classList.add('opacity-0', 'pointer-events-none');
       document.body.style.overflow = '';
     }
+    
+    // Listen for window resize events to update the animation
+    const handleResize = () => {
+      const isMobile = window.innerWidth < 768;
+      if (isOpen) {
+        sheetRef.current!.style.transform = isMobile ? 'translateY(0)' : 'translateX(0)';
+      } else {
+        sheetRef.current!.style.transform = isMobile ? 'translateY(100%)' : 'translateX(100%)';
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [isOpen]);
   
   // Calculate total
@@ -110,7 +138,7 @@ const CartSheet: React.FC<CartSheetProps> = ({ isOpen, tableId, onClose }) => {
       {/* Sliding cart panel */}
       <div 
         ref={sheetRef}
-        className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-xl max-h-[85vh] overflow-y-auto transform translate-y-full transition-transform duration-300"
+        className="absolute bottom-0 left-0 right-0 md:left-auto md:w-[450px] lg:w-[500px] bg-white rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none shadow-xl max-h-[85vh] md:h-full md:max-h-full overflow-y-auto transform translate-y-full md:translate-y-0 md:translate-x-full transition-transform duration-300"
       >
         <div className="absolute top-0 left-0 right-0 h-1.5">
           <div className="h-1.5 w-16 bg-border rounded-full mx-auto mt-2"></div>

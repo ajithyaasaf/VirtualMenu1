@@ -140,14 +140,38 @@
 
 /* Restaurant app container */
 .restaurant-app {
-  max-width: 480px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
-  height: 100vh;
-  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   @apply bg-white;
   position: relative;
   overflow: hidden;
+  
+  /* Responsive layout for different screen sizes */
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  /* On larger screens (tablet and up) */
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+      "header header"
+      "categories menu";
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+  }
+  
+  /* On very large screens */
+  @media (min-width: 1280px) {
+    grid-template-columns: 320px 1fr;
+  }
 }
 
 /* Menu categories */
