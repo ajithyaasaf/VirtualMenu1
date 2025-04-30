@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from '@/context/CartContext';
+import { ShoppingBag, Utensils } from 'lucide-react';
 
 interface HeaderProps {
   restaurantName: string;
@@ -12,22 +13,36 @@ const Header: React.FC<HeaderProps> = ({ restaurantName, tableId, onCartOpen }) 
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   
   return (
-    <header className="bg-white sticky top-0 z-10 px-4 py-3 shadow-sm">
+    <header className="bg-white sticky top-0 z-10 px-4 py-3 shadow-md">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-poppins font-bold text-xl text-foreground">{restaurantName}</h1>
-          <p className="text-sm text-muted-foreground">Table {tableId}</p>
+        <div className="flex items-center">
+          <div className="p-2 mr-2 rounded-full bg-primary/10">
+            <Utensils className="h-5 w-5 text-primary" />
+          </div>
+          <div>
+            <h1 className="font-poppins font-bold text-xl gradient-text">{restaurantName}</h1>
+            <div className="flex items-center">
+              <span className="inline-block px-2 py-0.5 bg-accent text-xs font-medium rounded-full text-primary-foreground">
+                Table {tableId}
+              </span>
+            </div>
+          </div>
         </div>
         <div className="relative">
           <button 
-            className={`p-2 relative ${cartCount > 0 ? 'cart-badge' : ''}`} 
+            className={`p-2 relative bg-primary/10 rounded-full hover:bg-primary/20 transition-colors ${cartCount > 0 ? 'cart-badge' : ''}`} 
             data-count={cartCount > 0 ? cartCount : ''}
             onClick={onCartOpen}
+            aria-label="Open cart"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
+            <ShoppingBag className="h-5 w-5 text-primary" />
           </button>
+        </div>
+      </div>
+      <div className="mt-3 flex items-center">
+        <div className="text-xs bg-secondary/10 text-secondary rounded-full px-2 py-1 flex items-center">
+          <span className="inline-block w-2 h-2 bg-secondary rounded-full mr-1"></span>
+          Open • 9:00 AM - 10:00 PM
         </div>
       </div>
     </header>

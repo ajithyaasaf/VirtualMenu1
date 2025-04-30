@@ -81,49 +81,51 @@ const MenuPage: React.FC = () => {
   };
   
   return (
-    <div className="restaurant-app relative h-screen flex flex-col">
-      {/* Header */}
-      <Header 
-        restaurantName="Spice Garden" 
-        tableId={tableId}
-        onCartOpen={handleCartOpen}
-      />
-      
-      {/* Category Navigation */}
-      <CategoryNav 
-        activeCategory={activeCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-      
-      {/* Menu List */}
-      {isLoading ? (
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="mt-4 text-muted-foreground">Loading menu...</p>
-          </div>
-        </div>
-      ) : (
-        <MenuList 
-          menuItems={menuItems} 
-          activeCategory={activeCategory}
+    <div className="bg-[#F7F7F7] min-h-screen">
+      <div className="restaurant-app relative flex flex-col">
+        {/* Header */}
+        <Header 
+          restaurantName="Spice Garden" 
+          tableId={tableId}
+          onCartOpen={handleCartOpen}
         />
-      )}
-      
-      {/* Cart Sheet */}
-      <CartSheet 
-        isOpen={isCartOpen}
-        tableId={tableId}
-        onClose={handleCartClose}
-      />
-      
-      {/* Order Confirmation */}
-      <OrderConfirmation 
-        isVisible={orderConfirmation.isVisible}
-        orderId={orderConfirmation.orderId}
-        status={orderConfirmation.status}
-        onClose={handleDismissConfirmation}
-      />
+        
+        {/* Category Navigation */}
+        <CategoryNav 
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+        
+        {/* Menu List */}
+        {isLoading ? (
+          <div className="flex-1 flex items-center justify-center">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+              <p className="mt-4 text-muted-foreground">Loading delicious menu...</p>
+            </div>
+          </div>
+        ) : (
+          <MenuList 
+            menuItems={menuItems} 
+            activeCategory={activeCategory}
+          />
+        )}
+        
+        {/* Cart Sheet */}
+        <CartSheet 
+          isOpen={isCartOpen}
+          tableId={tableId}
+          onClose={handleCartClose}
+        />
+        
+        {/* Order Confirmation */}
+        <OrderConfirmation 
+          isVisible={orderConfirmation.isVisible}
+          orderId={orderConfirmation.orderId}
+          status={orderConfirmation.status}
+          onClose={handleDismissConfirmation}
+        />
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { type Category } from '@shared/schema';
 import MenuItem from './MenuItem';
 import { type MenuItem as MenuItemType } from '@shared/schema';
 import { useCart } from '@/context/CartContext';
+import { CupSoda, Info, Search } from 'lucide-react';
 
 interface MenuListProps {
   menuItems: MenuItemType[];
@@ -22,16 +23,49 @@ const MenuList: React.FC<MenuListProps> = ({ menuItems, activeCategory }) => {
   };
   
   return (
-    <main className="flex-1 overflow-y-auto pb-20">
-      <div className="px-4 py-2">
-        <h2 className="font-poppins font-semibold text-lg mb-3">{activeCategory}</h2>
+    <main className="flex-1 overflow-y-auto pb-20 menu-list">
+      <div className="sticky top-0 z-10 bg-accent/50 backdrop-blur-sm px-4 py-3 flex items-center">
+        <div className="relative flex-1">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+            <Search className="h-4 w-4" />
+          </div>
+          <input 
+            type="text" 
+            placeholder="Search menu items..." 
+            className="w-full bg-white py-2 pl-10 pr-4 rounded-xl border border-border focus:outline-none focus:ring-1 focus:ring-primary text-sm"
+          />
+        </div>
+        <button className="p-2 ml-2 rounded-full bg-white border border-border">
+          <Info className="h-4 w-4 text-muted-foreground" />
+        </button>
+      </div>
+      
+      <div className="px-4 py-3">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            {activeCategory === 'Beverages' ? (
+              <CupSoda className="h-5 w-5 text-primary" />
+            ) : (
+              <span className="inline-block w-2 h-2 bg-primary rounded-full"></span>
+            )}
+            <h2 className="font-poppins font-semibold text-lg">{activeCategory}</h2>
+          </div>
+          
+          <div className="text-sm text-muted-foreground">
+            {filteredItems.length} items
+          </div>
+        </div>
         
         {filteredItems.length === 0 ? (
-          <div className="bg-white rounded-lg shadow-sm p-4 text-center">
-            <p className="text-muted-foreground">No items available in this category.</p>
+          <div className="bg-white rounded-lg shadow-sm p-6 text-center">
+            <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-3">
+              <Info className="h-6 w-6 text-muted-foreground" />
+            </div>
+            <h3 className="font-medium mb-1">No items available</h3>
+            <p className="text-muted-foreground text-sm">This category is currently empty.</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div>
             {filteredItems.map((item) => (
               <MenuItem 
                 key={item.id}

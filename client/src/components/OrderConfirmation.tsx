@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Check } from 'lucide-react';
+import { Check, CheckCircle, ChefHat, Clock, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface OrderConfirmationProps {
@@ -43,73 +43,87 @@ const OrderConfirmation: React.FC<OrderConfirmationProps> = ({
   return (
     <div 
       ref={confirmationRef}
-      className="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center p-6 transform scale-0 opacity-0 transition-all duration-300"
+      className="fixed inset-0 z-50 bg-gradient-to-b from-white to-accent/30 flex flex-col items-center justify-center p-6 transform scale-0 opacity-0 transition-all duration-300"
       style={{ visibility: isVisible ? 'visible' : 'hidden' }}
     >
-      <div className="bg-primary bg-opacity-10 rounded-full p-6 mb-6">
-        <Check className="h-16 w-16 text-primary" />
-      </div>
-      
-      <h2 className="font-poppins font-bold text-2xl mb-2">Order Placed!</h2>
-      <p className="text-center text-muted-foreground mb-6">
-        Your order #{orderId} has been received and is being prepared.
-      </p>
-      
-      <div className="w-full max-w-sm">
-        <div className="bg-accent rounded-lg p-4 mb-6">
-          <h3 className="font-medium mb-2">Order Status</h3>
-          <div className="flex items-center justify-between">
-            {/* New status */}
-            <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${status === 'new' ? 'bg-[#484848]' : status === 'cooking' || status === 'ready' ? 'bg-[#484848]' : 'bg-muted-foreground bg-opacity-20'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-              </div>
-              <span className="ml-2">New</span>
-            </div>
+      <div className="p-6 rounded-xl max-w-md w-full bg-white shadow-lg">
+        {/* Success icon */}
+        <div className="relative">
+          <div className="absolute inset-0 bg-primary/10 rounded-full animate-ping opacity-30"></div>
+          <div className="bg-primary/10 rounded-full p-5 mx-auto w-24 h-24 flex items-center justify-center mb-6 relative z-10">
+            <Check className="h-12 w-12 text-primary" />
+          </div>
+        </div>
+        
+        {/* Title and description */}
+        <div className="text-center mb-6">
+          <h2 className="font-poppins font-bold text-2xl mb-2 gradient-text">Order Confirmed!</h2>
+          <p className="text-center text-muted-foreground">
+            Your order <span className="text-primary font-semibold">#{orderId}</span> has been received and will be prepared shortly.
+          </p>
+        </div>
+        
+        {/* Order status tracker */}
+        <div className="bg-accent/50 rounded-xl p-5 mb-6">
+          <h3 className="font-medium mb-4 flex items-center">
+            <Clock className="h-4 w-4 mr-2 text-muted-foreground" />
+            <span>Order Status</span>
+          </h3>
+          
+          <div className="relative pb-2">
+            {/* Status progress bar */}
+            <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-muted-foreground/20"></div>
             
-            {/* Progress bar 1 */}
-            <div className="h-1 flex-1 bg-muted-foreground bg-opacity-20 mx-2 relative">
-              <div 
-                className="absolute left-0 top-0 bottom-0 bg-[#484848]" 
-                style={{ width: `${status === 'new' ? 100 : status === 'cooking' || status === 'ready' ? 100 : 0}%` }}
-              ></div>
+            {/* New status */}
+            <div className="relative flex items-start mb-6">
+              <div className={`z-10 w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center ${
+                status === 'new' || status === 'cooking' || status === 'ready' 
+                  ? 'bg-primary text-white shadow-md' 
+                  : 'border-2 border-muted-foreground/20 bg-white'
+              }`}>
+                <Plus className="h-4 w-4" />
+              </div>
+              <div className="ml-4">
+                <h4 className="font-medium">Order Received</h4>
+                <p className="text-sm text-muted-foreground">Your order has been confirmed</p>
+              </div>
             </div>
             
             {/* Cooking status */}
-            <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${status === 'cooking' ? 'bg-[#FF9500] text-white' : status === 'ready' ? 'bg-[#FF9500] text-white' : 'bg-muted-foreground bg-opacity-20 text-muted-foreground'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
-                </svg>
+            <div className="relative flex items-start mb-6">
+              <div className={`z-10 w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center ${
+                status === 'cooking' || status === 'ready' 
+                  ? 'bg-[#FF9500] text-white shadow-md' 
+                  : 'border-2 border-muted-foreground/20 bg-white'
+              }`}>
+                <ChefHat className="h-4 w-4" />
               </div>
-              <span className="ml-2">Cooking</span>
-            </div>
-            
-            {/* Progress bar 2 */}
-            <div className="h-1 flex-1 bg-muted-foreground bg-opacity-20 mx-2 relative">
-              <div 
-                className="absolute left-0 top-0 bottom-0 bg-[#FF9500]" 
-                style={{ width: `${status === 'cooking' ? 100 : status === 'ready' ? 100 : 0}%` }}
-              ></div>
+              <div className="ml-4">
+                <h4 className="font-medium">Preparation</h4>
+                <p className="text-sm text-muted-foreground">Our chefs are preparing your food</p>
+              </div>
             </div>
             
             {/* Ready status */}
-            <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${status === 'ready' ? 'bg-[#4CD964] text-white' : 'bg-muted-foreground bg-opacity-20 text-muted-foreground'}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
+            <div className="relative flex items-start">
+              <div className={`z-10 w-8 h-8 flex-shrink-0 rounded-full flex items-center justify-center ${
+                status === 'ready' 
+                  ? 'bg-[#4CD964] text-white shadow-md' 
+                  : 'border-2 border-muted-foreground/20 bg-white'
+              }`}>
+                <CheckCircle className="h-4 w-4" />
               </div>
-              <span className="ml-2">Ready</span>
+              <div className="ml-4">
+                <h4 className="font-medium">Ready to Serve</h4>
+                <p className="text-sm text-muted-foreground">Your order is ready to be served</p>
+              </div>
             </div>
           </div>
         </div>
         
+        {/* CTA button */}
         <Button 
-          className="w-full bg-primary text-white py-6 rounded-lg font-medium shadow-sm hover:bg-primary/90"
+          className="w-full bg-primary text-white py-6 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all"
           onClick={onClose}
         >
           Continue Browsing
