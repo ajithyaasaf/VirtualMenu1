@@ -1,9 +1,8 @@
 import React from 'react';
-import { type Category } from '@shared/schema';
-import MenuItem from './MenuItem';
-import { type MenuItem as MenuItemType } from '@shared/schema';
+import { type Category, type MenuItem as MenuItemType } from '@shared/schema';
+import MenuItem from './MenuItem'; 
 import { useCart } from '@/context/CartContext';
-import { CupSoda, Info, Search, Filter, SlidersHorizontal } from 'lucide-react';
+import { CupSoda, Info, Search, SlidersHorizontal } from 'lucide-react';
 
 interface MenuListProps {
   menuItems: MenuItemType[];

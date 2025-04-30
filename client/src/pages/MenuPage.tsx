@@ -82,7 +82,7 @@ const MenuPage: React.FC = () => {
   
   return (
     <div className="bg-[#F7F7F7] min-h-screen">
-      <div className="restaurant-app relative flex flex-col">
+      <div className="restaurant-app relative">
         {/* Header */}
         <Header 
           restaurantName="Spice Garden" 

@@ -150,9 +150,9 @@
   position: relative;
   overflow: hidden;
   
-  /* Responsive layout for different screen sizes */
-  display: grid;
-  grid-template-columns: 1fr;
+  /* Responsive layout for different screen sizes - mobile first */
+  display: flex;
+  flex-direction: column;
   
   /* On larger screens (tablet and up) */
   @media (min-width: 768px) {
@@ -171,6 +171,27 @@
   /* On very large screens */
   @media (min-width: 1280px) {
     grid-template-columns: 320px 1fr;
+  }
+}
+
+/* Define grid areas */
+.md\:grid-area-header {
+  grid-area: header !important;
+}
+
+.md\:grid-area-categories {
+  grid-area: categories !important;
+}
+
+.md\:grid-area-menu {
+  grid-area: menu !important;
+}
+
+@media (max-width: 767px) {
+  .md\:grid-area-header,
+  .md\:grid-area-categories,
+  .md\:grid-area-menu {
+    grid-area: auto !important;
   }
 }
 
