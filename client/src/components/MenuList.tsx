@@ -22,40 +22,40 @@ const MenuList: React.FC<MenuListProps> = ({ menuItems, activeCategory }) => {
   };
   
   return (
-    <main className="flex-1 overflow-y-auto pb-20 menu-list md:grid-area-menu md:border-l md:border-border">
+    <main className="flex-1 overflow-y-auto pb-20 menu-list md:grid-area-menu">
       {/* Search bar */}
-      <div className="sticky top-0 z-10 bg-accent/50 backdrop-blur-sm px-4 py-3 flex items-center md:px-6 md:py-4 lg:px-8">
+      <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-4 flex items-center md:px-6 lg:px-8">
         <div className="relative flex-1">
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             <Search className="h-4 w-4" />
           </div>
           <input 
             type="text" 
             placeholder="Search menu items..." 
-            className="w-full bg-white py-2 pl-10 pr-4 rounded-xl border border-border focus:outline-none focus:ring-1 focus:ring-primary text-sm md:py-2.5 md:text-base"
+            className="w-full bg-gray-50 py-2.5 pl-10 pr-4 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm md:text-base"
           />
         </div>
-        <div className="flex gap-2">
-          <button className="p-2 ml-2 rounded-full bg-white border border-border md:flex md:items-center md:px-4 md:rounded-xl">
-            <SlidersHorizontal className="h-4 w-4 text-muted-foreground" />
-            <span className="hidden md:inline-block ml-2 text-sm font-medium">Filters</span>
+        <div className="flex gap-2 ml-3">
+          <button className="p-2 rounded-lg bg-gray-50 border border-gray-200 md:flex md:items-center md:px-4">
+            <SlidersHorizontal className="h-4 w-4 text-gray-500" />
+            <span className="hidden md:inline-block ml-2 text-sm font-medium text-gray-700">Filters</span>
           </button>
         </div>
       </div>
       
-      <div className="px-4 py-3 md:px-6 md:py-5 lg:px-8 lg:py-6">
+      <div className="px-4 py-5 md:px-6 lg:px-8 lg:py-6">
         {/* Category header */}
-        <div className="flex items-center justify-between mb-4 md:mb-6">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
             {activeCategory === 'Beverages' ? (
-              <CupSoda className="h-5 w-5 text-primary md:h-6 md:w-6" />
+              <CupSoda className="h-5 w-5 text-blue-600 md:h-6 md:w-6" />
             ) : (
-              <span className="inline-block w-2 h-2 bg-primary rounded-full md:w-3 md:h-3"></span>
+              <span className="inline-block w-2 h-2 bg-blue-600 rounded-full md:w-3 md:h-3"></span>
             )}
-            <h2 className="font-poppins font-semibold text-lg md:text-xl lg:text-2xl">{activeCategory}</h2>
+            <h2 className="font-semibold text-xl text-gray-900 md:text-2xl">{activeCategory}</h2>
           </div>
           
-          <div className="text-sm text-muted-foreground md:text-base">
+          <div className="text-sm text-gray-500 bg-gray-50 px-3 py-1 rounded-full">
             {filteredItems.length} items
           </div>
         </div>

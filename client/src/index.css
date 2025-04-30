@@ -141,9 +141,7 @@
 /* Restaurant app container */
 .restaurant-app {
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
   min-height: 100vh;
   min-height: 100dvh;
   @apply bg-white;

@@ -15,7 +15,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, quantity, onIncrease, onDecre
   const isPopular = [1, 5, 8].includes(item.id);
   
   return (
-    <div className={`menu-item bg-white rounded-2xl shadow-sm overflow-hidden mb-4 ${isPopular ? 'promo-item' : ''} h-full flex flex-col`}>
+    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-5 h-full flex flex-col hover:shadow-md transition-shadow">
       {/* Mobile layout (stacked) and tablet/desktop layout (side-by-side) */}
       <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row h-full">
         {/* Image container */}
@@ -27,43 +27,45 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, quantity, onIncrease, onDecre
             loading="lazy"
           />
           {isPopular && (
-            <div className="absolute top-2 left-2 bg-primary/90 text-white text-xs px-2 py-1 rounded-lg font-medium flex items-center">
+            <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs px-2.5 py-1 rounded-md font-medium flex items-center">
               <Flame className="h-3 w-3 mr-1" />
               Popular
             </div>
           )}
           
           {/* Rating badge - desktop only */}
-          <div className="absolute bottom-2 right-2 bg-white/90 text-primary text-xs px-2 py-1 rounded-lg font-medium flex items-center shadow-sm hidden lg:flex">
-            <Star className="h-3 w-3 mr-1 fill-primary" />
+          <div className="absolute bottom-3 right-3 bg-white text-gray-700 text-xs px-2 py-1 rounded-md font-medium flex items-center shadow-sm hidden lg:flex">
+            <Star className="h-3 w-3 mr-1 text-yellow-400 fill-yellow-400" />
             <span>4.9</span>
           </div>
         </div>
         
         {/* Content container */}
-        <div className="flex-1 p-4 flex flex-col justify-between">
+        <div className="flex-1 p-5 flex flex-col justify-between">
           <div>
             <div className="flex justify-between items-start">
-              <h3 className="font-semibold text-base md:text-lg">{item.name}</h3>
-              <div className="price-badge">{formatPrice(item.price)}</div>
+              <h3 className="font-medium text-gray-900 text-base md:text-lg">{item.name}</h3>
+              <div className="ml-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                {formatPrice(item.price)}
+              </div>
             </div>
-            <p className="text-muted-foreground text-sm line-clamp-2 mt-1 mb-3">{item.description}</p>
+            <p className="text-gray-500 text-sm line-clamp-2 mt-2 mb-4">{item.description}</p>
           </div>
           
           {/* Action buttons */}
-          <div className="flex items-center justify-end mt-2">
+          <div className="flex items-center justify-end">
             {quantity > 0 ? (
-              <div className="flex items-center bg-accent/50 p-1 rounded-full">
+              <div className="flex items-center bg-gray-50 p-1 rounded-lg border border-gray-200">
                 <button 
-                  className="qty-btn w-8 h-8 flex items-center justify-center rounded-full bg-white md:w-9 md:h-9"
+                  className="w-8 h-8 flex items-center justify-center rounded-md bg-white border border-gray-200 md:w-9 md:h-9"
                   onClick={onDecrease}
                   aria-label="Decrease quantity"
                 >
-                  <Minus className="h-4 w-4" />
+                  <Minus className="h-4 w-4 text-gray-600" />
                 </button>
-                <span className="mx-3 w-6 text-center font-medium">{quantity}</span>
+                <span className="mx-3 w-6 text-center font-medium text-gray-900">{quantity}</span>
                 <button 
-                  className="qty-btn w-8 h-8 flex items-center justify-center rounded-full bg-primary text-white md:w-9 md:h-9"
+                  className="w-8 h-8 flex items-center justify-center rounded-md bg-blue-600 text-white md:w-9 md:h-9"
                   onClick={onIncrease}
                   aria-label="Increase quantity"
                 >
@@ -72,12 +74,12 @@ const MenuItem: React.FC<MenuItemProps> = ({ item, quantity, onIncrease, onDecre
               </div>
             ) : (
               <button 
-                className="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium shadow-sm hover:shadow-md transition-all flex items-center md:py-2.5"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors flex items-center md:py-2.5"
                 onClick={onIncrease}
                 aria-label="Add to cart"
               >
-                <Plus className="h-4 w-4 mr-1" />
-                <span className="md:text-base">Add to cart</span>
+                <Plus className="h-4 w-4 mr-1.5" />
+                <span className="md:text-sm">Add to cart</span>
               </button>
             )}
           </div>

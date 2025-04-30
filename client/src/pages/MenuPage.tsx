@@ -81,8 +81,8 @@ const MenuPage: React.FC = () => {
   };
   
   return (
-    <div className="bg-[#F7F7F7] min-h-screen">
-      <div className="restaurant-app relative">
+    <div className="min-h-screen w-full">
+      <div className="restaurant-app relative w-full">
         {/* Header */}
         <Header 
           restaurantName="Spice Garden" 
